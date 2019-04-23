@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <context-param>
+        <param-name>SERVICE_VERSION</param-name>
+        <param-value>CountryNameService 2.3</param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>OutputFormatFilter</filter-name>
+        <filter-class>mil.nga.to6.OutputFormatFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>OutputFormatFilter</filter-name>
+        <servlet-name>country_name_servlet</servlet-name>
+    </filter-mapping>    
+    <servlet>
+        <servlet-name>country_name_servlet</servlet-name>
+        <servlet-class>mil.nga.to6.country_name_servlet</servlet-class>
+    </servlet>
+    <!-- BEGIN Added ssi Servlet for Server Side Includes -->
+    <servlet>
+      <servlet-name>ssi</servlet-name>
+      <servlet-class>org.apache.catalina.ssi.SSIServlet</servlet-class>
+      <init-param>
+          <param-name>debug</param-name>
+          <param-value>1</param-value>
+        </init-param>      
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ssi</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>    
+    <!-- END Added ssi Servlet for Server Side Includes -->
+    
+    <servlet-mapping>
+        <servlet-name>country_name_servlet</servlet-name>
+        <url-pattern>/country_name_servlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <resource-ref>
+        <description>WS Connection Pool</description>
+        <res-ref-name>jdbc/ws</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>          
+</web-app>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema version="1.0" targetNamespace="mil:nga:country_name:v2"
+	  xmlns:tns="mil:nga:country_name:v2" 
+    xmlns:sec="mil:nga:security" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:import namespace="mil:nga:security" 
+          schemaLocation="security.xsd">
+  </xsd:import>
+
+  <xsd:complexType name="BoundaryInfoBean">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string" nillable="false"/>
+      <xsd:element name="lastupdated" type="xsd:string" nillable="false" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CountryNameBean">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string" nillable="true"/>
+      <xsd:element name="altNames" type="xsd:string" nillable="true"/>
+      <xsd:element name="codes" type="xsd:string" nillable="true"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCountryNames">
+    <xsd:sequence>
+      <xsd:element name="security" type="sec:SecurityElement" nillable="true" />
+      <xsd:element name="countryBoundaryLayer" type="xsd:string" nillable="true"/>
+      <xsd:element name="oceanBoundaryLayer" type="xsd:string" nillable="true"/>
+      <xsd:element name="codeList" type="xsd:string" nillable="true"/>
+      <xsd:element name="geometryWKT" type="xsd:string" nillable="true"/>
+      <xsd:element name="nearest" type="xsd:boolean" nillable="true"/>
+      <xsd:element name="buffer" type="xsd:double" nillable="true"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetCountryNamesResponse">
+    <xsd:sequence>
+      <xsd:element name="security" type="sec:SecurityElement" nillable="false" />
+      <xsd:element name="boundaryLayer" type="tns:BoundaryInfoBean" nillable="true" />
+      <xsd:element name="countryNames" type="tns:CountryNameBean" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetParameterInfo">
+    <xsd:sequence>
+      <xsd:element name="security" type="sec:SecurityElement" nillable="true"/>
+      <xsd:element name="parameter" type="xsd:string" nillable="true"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetParameterInfoResponse">
+    <xsd:sequence>
+      <xsd:element name="security" type="sec:SecurityElement" nillable="false"/>
+      <xsd:element name="description" type="xsd:string" nillable="true"/>
+      <xsd:element name="values" type="xsd:string" nillable="true"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="nga_resource" type="xsd:string" />
+  <xsd:element name="description_document" type="xsd:string" />
+
+  <xsd:element name="GetCountryNames" type="tns:GetCountryNames" nillable="true"/>
+  <xsd:element name="GetCountryNamesResponse" type="tns:GetCountryNamesResponse"/>
+  <xsd:element name="GetParameterInfo" type="tns:GetParameterInfo" nillable="true"/>
+  <xsd:element name="GetParameterInfoResponse" type="tns:GetParameterInfoResponse"/>
+
+</xsd:schema>

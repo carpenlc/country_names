@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<schema version="1.0" targetNamespace="mil:nga:security"
+    xmlns:tns="mil:nga:security" 
+	  xmlns:ism="urn:us:gov:ic:ism:v2"    
+    xmlns="http://www.w3.org/2001/XMLSchema">
+
+  <import namespace="urn:us:gov:ic:ism:v2"
+		schemaLocation="IC-ISM-v2.xsd">
+  </import>
+  
+  <complexType name="SecurityElement">
+    <attributeGroup ref="ism:SecurityAttributesGroup"/>
+  </complexType>
+
+</schema>
